@@ -16,6 +16,7 @@ Provides functions for working with Kubernetes clusters, specifically those runn
 ## Prerequisites
 
 - [kubectl](https://kubernetes.io/docs/tasks/tools/install-kubectl/)
+- [jq](https://stedolan.github.io/jq/)
 - [AWS CLI](https://aws.amazon.com/cli/)
 
 
@@ -45,6 +46,12 @@ $ kube-rotate <node>
 ```
 
 Drains & deletes the given Kubernetes node, then terminates the AWS instance.
+
+```fish
+$ unschedulable
+```
+
+Lists unschedulable Pods in all Namespaces.
 
 
 # License
