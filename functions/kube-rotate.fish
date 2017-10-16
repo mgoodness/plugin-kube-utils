@@ -1,7 +1,11 @@
-function kube-rotate -d 'Drains a Kubernetes node & terminates the instance' -a k8s_node
+function kube-rotate -d 'Drains a Kubernetes node & terminates the instance' -a k8s_node region
   if test -z "$k8s_node"
     echo "usage: kube-rotate <k8s_node>"
     return 1
+  end
+
+  if test -z "$region"
+    set -l region us-east-1
   end
 
   if string match -i -r -q "^no\/.*" $k8s_node
@@ -12,8 +16,8 @@ function kube-rotate -d 'Drains a Kubernetes node & terminates the instance' -a 
   kubectl delete node $k8s_node
 
   if test $status -eq 0
-    set -l instance_id (kube-instance $k8s_node)
+    set -l instance_id (kube-instance $k8s_node $region)
 
-    aws ec2 terminate-instances --instance-ids $instance_id
+    aws ec2 terminate-instances --instance-ids $instance_id --region=$region
   end
 end
