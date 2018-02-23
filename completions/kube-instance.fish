@@ -1,6 +1,3 @@
-function __fish_print_k8s_nodes -d "Print a list of Kubernetes nodes" -a select
-  command kubectl get no \
-    -o go-template='{{range .items}}{{.metadata.name}}{{"\n"}}{{end}}'
-end
-
-complete -c kube-instance -f -a "(__fish_print_k8s_nodes)"
+complete -c "kube-instance" -f
+complete -xc "kube-instance" -s n -l node -a "(__fish_print_k8s_nodes)"
+complete -xc "kube-instance" -s p -l profile -a "(__fish_print_aws_profiles)"
