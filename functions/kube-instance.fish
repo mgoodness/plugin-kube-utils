@@ -25,7 +25,8 @@ function kube-instance -d "Translates a Kubernetes node name to an AWS instance 
 
   set -q _flag_r; or set -l _flag_r "us-east-1"
 
-  if string match -i -r -q "^no\/.*" $_flag_n
+  set -l k8s_node $_flag_n
+  if string match -i -r -q "^no\/.*" $k8s_node
     set k8s_node (string sub -s 4 $k8s_node)
   end
 

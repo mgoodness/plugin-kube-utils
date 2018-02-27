@@ -28,8 +28,9 @@ function kube-rotate -d "Drains a Kubernetes node & terminates the instance"
   set -q _flag_r; or set -l _flag_r (string split "." -- $_flag_c)[2]; or \
     set -l _flag_r "us-east-1"
 
-  if string match -i -r -q "^no\/.*" $_flag_n
-    set k8s_node (string sub -s 4 $_flag_n)
+  set -l k8s_node $_flag_n
+  if string match -i -r -q "^no\/.*" $k8s_node
+    set k8s_node (string sub -s 4 $k8s_node)
   end
 
   kubectl --context=$_flag_c drain --timeout=2m --delete-local-data --force \
